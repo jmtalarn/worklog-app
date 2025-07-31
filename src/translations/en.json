@@ -1,0 +1,12 @@
+{
+	"title": "Worklog",
+	"start": "Start session",
+	"end": "End session",
+	"placeholder.notes": "Optional notes...",
+	"startedAt": "Session started at: {time}",
+	"lang.ca": "Catalan",
+	"lang.es": "Spanish",
+	"lang.en": "English",
+	"unknownClient": "Unknown client",
+	"unknownProject": "Unknown project"
+}

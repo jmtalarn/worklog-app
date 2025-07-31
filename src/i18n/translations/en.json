@@ -1,0 +1,18 @@
+{
+	"title": "Worklog",
+	"start": "Start session",
+	"end": "End session",
+	"placeholder.notes": "Optional notes...",
+	"startedAt": "Session started at: {time}",
+	"lang.ca": "Catalan",
+	"lang.es": "Spanish",
+	"lang.en": "English",
+	"sessionStatus.workInProgress": "Work in progress",
+	"sessionStatus.notWorking": "Not working",
+	"SessionControl.selectProject": "-- Select project --",
+	"SessionControl.selectClient": "— Select client —",
+	"SessionControl.startSession": "Start session",
+	"SessionControl.endSession": "End session",
+	"SessionControl.client": "Client",
+	"SessionControl.project": "Project"
+}

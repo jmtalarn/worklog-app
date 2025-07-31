@@ -1,0 +1,10 @@
+{
+	"title": "Jornada laboral",
+	"start": "Iniciar jornada",
+	"end": "Finalitzar jornada",
+	"placeholder.notes": "Notes opcionals...",
+	"startedAt": "Jornada iniciada a les: {time}",
+	"lang.ca": "Català",
+	"lang.es": "Castellà",
+	"lang.en": "Anglès"
+}

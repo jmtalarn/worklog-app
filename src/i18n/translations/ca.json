@@ -1,0 +1,20 @@
+{
+	"title": "Jornada laboral",
+	"start": "Iniciar jornada",
+	"end": "Finalitzar jornada",
+	"placeholder.notes": "Notes opcionals...",
+	"startedAt": "Jornada iniciada a les: {time}",
+	"lang.ca": "Català",
+	"lang.es": "Castellà",
+	"lang.en": "Anglès",
+	"sessionStatus.workInProgress": "Treball en curs",
+	"sessionStatus.notWorking": "No treballant",
+	"unknownClient": "Client desconegut",
+	"unknownProject": "Projecte desconegut",
+	"SessionControl.selectProject": "— Tria projecte —",
+	"SessionControl.selectClient": "— Tria client —",
+	"SessionControl.startSession": "Inicia sessió",
+	"SessionControl.endSession": "Finalitza sessió",
+	"SessionControl.client": "Client",
+	"SessionControl.project": "Projecte"
+}
