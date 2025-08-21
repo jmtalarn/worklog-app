@@ -2,6 +2,9 @@
 	"title": "Worklog",
 	"start": "Start session",
 	"end": "End session",
+	"close": "Close",
+	"save": "Save",
+	"cancel": "Cancel",
 	"placeholder.notes": "Optional notes...",
 	"startedAt": "Session started at: {time}",
 	"lang.ca": "Catalan",
@@ -14,5 +17,12 @@
 	"SessionControl.startSession": "Start session",
 	"SessionControl.endSession": "End session",
 	"SessionControl.client": "Client",
-	"SessionControl.project": "Project"
+	"SessionControl.project": "Project",
+	"SessionHistory.sessionsHistory": "Sessions history",
+	"SessionHistory.history": "History",
+	"sessionTable.start": "Start",
+	"sessionTable.end": "End",
+	"sessionTable.project": "Project",
+	"sessionTable.client": "Client",
+	"sessionTable.clicktoedit": "Click to edit"
 }

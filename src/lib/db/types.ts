@@ -17,3 +17,9 @@ export interface Session {
 	start: string;
 	end?: string;
 }
+
+export interface SessionWithDetails extends Session {
+	id: string;
+	projectName: string;
+	clientName: string;
+}
