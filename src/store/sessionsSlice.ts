@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addSession, updateSession, getAllSessions } from '@/lib/db/sessionStore';
+import { addSession, getAllSessions, updateSession as updateSessionDb } from '@/lib/db/sessionStore';
 import type { Session } from '@/lib/db/types';
 
 export const loadSessions = createAsyncThunk('sessions/load', async () => {
@@ -12,11 +12,22 @@ export const startSession = createAsyncThunk('sessions/start', async (projectId:
 	return { id: String(id), start, projectId };
 });
 
-export const stopSession = createAsyncThunk('sessions/stop', async (sessionId: string) => {
-	const end = new Date().toISOString();
-	await updateSession(sessionId, { end });
-	return { sessionId, end };
-});
+export const stopSession = createAsyncThunk(
+	'sessions/stop',
+	async (sessionId: string) => {
+		const end = new Date().toISOString();
+		await updateSessionDb(sessionId, { end });
+		return { sessionId, end };
+	}
+);
+
+export const updateSession = createAsyncThunk(
+	'sessions/update',
+	async ({ sessionId, updates }: { sessionId: string; updates: Partial<Session> }) => {
+		await updateSessionDb(sessionId, updates);
+		return { sessionId, updates };
+	}
+);
 
 interface SessionsState {
 	sessions: Session[];
@@ -48,6 +59,11 @@ const sessionsSlice = createSlice({
 				const session = state.sessions.find(s => s.id === action.payload.sessionId);
 				if (session) session.end = action.payload.end;
 				state.currentSessionId = null;
+			})
+			.addCase(updateSession.fulfilled, (state, action) => {
+				const { sessionId, updates } = action.payload;
+				const session = state.sessions.find(s => s.id === sessionId);
+				if (session) Object.assign(session, updates);
 			});
 	},
 });

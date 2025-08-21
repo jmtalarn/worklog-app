@@ -14,15 +14,23 @@ export function HistoryModal() {
 	return (
 		<div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-start pt-20 z-50">
 			<div className="bg-white dark:bg-gray-800 p-6 rounded shadow-md max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-				<h2 className="text-xl font-bold mb-4">🕓 {intl.formatMessage({ id: 'SessionHistory.sessionsHistory', defaultMessage: 'Historial de registres' })}</h2>
+				<div className="flex items-center justify-between mb-4">
+					<h2 className="text-xl font-bold flex items-center">
+						<span className="mr-2">🕓</span>
+						{intl.formatMessage({ id: 'SessionHistory.sessionsHistory', defaultMessage: 'Historial de registres' })}
+					</h2>
+					<button
+						onClick={() => dispatch(closeHistoryModal())}
+						className="text-blue-600 hover:underline flex items-center"
+					>
+						<span className="mr-1">✖️</span>
+						{intl.formatMessage({ id: 'close', defaultMessage: 'Tanca' })}
+					</button>
+				</div>
 
 				<SessionsList />
 
-				<div className="text-right mt-6">
-					<button onClick={() => dispatch(closeHistoryModal())} className="text-blue-600 hover:underline">
-						✖️ {intl.formatMessage({ id: 'close', defaultMessage: 'Tanca' })}
-					</button>
-				</div>
+
 			</div>
 		</div>
 	);

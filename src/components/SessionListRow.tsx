@@ -1,6 +1,11 @@
-import type { SessionWithDetails } from "@/lib/db/types";
-import { useState, type FC } from "react";
+import { getAllClients } from "@/lib/db/clientStore";
+import { getProjectById, getProjectsByClient } from "@/lib/db/projectStore";
+import type { Client, Project, SessionWithDetails } from "@/lib/db/types";
+import type { AppDispatch } from '@/store';
+import { loadSessions, updateSession } from '@/store/sessionsSlice';
+import { useCallback, useEffect, useState, type FC } from "react";
 import { useIntl } from "react-intl";
+import { useDispatch } from 'react-redux';
 
 interface RowProps {
 	session: SessionWithDetails;
@@ -11,13 +16,57 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 	const intl = useIntl();
 	const [isEditing, setIsEditing] = useState(false);
 	const [draft, setDraft] = useState(session);
-
-	const handleChange = (field: keyof SessionWithDetails, value: string) => {
+	const dispatch = useDispatch<AppDispatch>();
+	const [clients, setClients] = useState<Client[]>([]);
+	const [projects, setProjects] = useState<Project[]>([]);
+	const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+	const [selectedProjectId, setSelectedProjectId] = useState<string | null>(session.projectId || null);
+	const handleChange = useCallback((field: keyof SessionWithDetails, value: string) => {
 		setDraft({ ...draft, [field]: value });
-	};
+	}, []);
 
-	const handleSave = () => {
+	// On mount, fetch clients and set initial select values from ongoing session
+	useEffect(() => {
+		getAllClients().then((clients) => {
+			setClients(clients);
+			if (session.projectId) {
+				getProjectById(session.projectId).then((project) => {
+					if (project?.clientId) {
+						setSelectedClientId(project.clientId);
+					}
+				});
+			}
+		});
+
+	}, []);
+	// When client changes, update projects
+	useEffect(() => {
+		if (selectedClientId !== null) {
+			getProjectsByClient(selectedClientId).then((projects: Project[]) => {
+				setProjects(projects);
+				if (projects.findIndex((p) => (p.id === selectedProjectId)) === -1) {
+					setSelectedProjectId(null);
+				}
+			});
+		} else {
+			setProjects([]);
+		}
+	}, [selectedClientId, selectedProjectId]);
+
+	useEffect(() => {
+		if (selectedProjectId !== null && selectedProjectId !== draft.projectId) {
+			handleChange("projectId", selectedProjectId);
+		}
+	}, [selectedProjectId, handleChange, draft.projectId]);
+
+
+
+	const handleSave = async () => {
 		onSave?.(draft);
+
+		await dispatch(updateSession({ sessionId: session.id, updates: draft })).unwrap();
+		await dispatch(loadSessions());
+
 		setIsEditing(false);
 	};
 
@@ -53,20 +102,33 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 						/>
 					</td>
 					<td className="px-2 py-2">
-						<input
-							type="text"
+
+						<select
+							value={selectedProjectId ?? ''}
+							onChange={(e) => setSelectedProjectId(e.target.value)}
 							className="border rounded px-2 py-1 text-sm w-full"
-							value={draft.projectName}
-							onChange={(e) => handleChange("projectName", e.target.value)}
-						/>
+						>
+							<option value="">{intl.formatMessage({ id: 'SessionControl.selectProject', defaultMessage: '— Tria projecte —' })}</option>
+							{projects.map((project) => (
+								<option key={project.id} value={project.id}>
+									{project.name}
+								</option>
+							))}
+						</select>
 					</td>
 					<td className="px-2 py-2">
-						<input
-							type="text"
+						<select
+							value={selectedClientId ?? ''}
+							onChange={(e) => setSelectedClientId(e.target.value)}
 							className="border rounded px-2 py-1 text-sm w-full"
-							value={draft.clientName}
-							onChange={(e) => handleChange("clientName", e.target.value)}
-						/>
+						>
+							<option value="">{intl.formatMessage({ id: 'SessionControl.selectClient', defaultMessage: '— Tria client —' })}</option>
+							{clients.map((client) => (
+								<option key={client.id} value={client.id}>
+									{client.name}
+								</option>
+							))}
+						</select>
 					</td>
 					<td className="px-2 py-2 text-right">
 						<div className="flex items-center gap-1 justify-end">

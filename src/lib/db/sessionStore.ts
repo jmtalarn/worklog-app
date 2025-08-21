@@ -15,6 +15,7 @@ export async function updateSession(id: string, data: Partial<Session>) {
 		const updated = { ...session, ...data };
 		await db.put('sessions', updated);
 	}
+
 }
 
 export async function getAllSessions(): Promise<Session[]> {
