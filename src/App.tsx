@@ -20,7 +20,7 @@ function App() {
           <FormattedMessage defaultMessage="Worklog" id="title" />
         </h1>
         <CurrentDate />
-        <div className={styles.controls}>
+        <div className={styles['config-buttons']}>
           <LanguageSelector />
           <DarkModeSwitch />
           <SettingsButton />
@@ -29,7 +29,7 @@ function App() {
           <HistoryButton />
         </div>
       </header>
-      <div className="">
+      <div className={styles['session-controls']}>
         <SessionStatus />
 
         <SessionControl />

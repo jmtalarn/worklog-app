@@ -10,7 +10,15 @@
 	margin: 0;
 }
 
-.controls {
+.config-buttons {
 	display: flex;
 	gap: 0.5rem;
+}
+
+.session-controls {
+	display: flex;
+	align-items: flex-start;
+	gap: 1rem;
+	margin-top: 1rem;
+	flex-wrap: wrap;
 }

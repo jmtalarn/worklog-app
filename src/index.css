@@ -205,8 +205,15 @@ select {
 	background-position: right 0.5rem center;
 	background-size: 1rem;
 	padding-right: 2rem;
+	cursor: pointer;
 }
 
+[disabled] {
+	cursor: not-allowed;
+}
+button[disabled] {
+	opacity: 0.6;
+}
 /*
  
  ██████      █████     ████████    ███████    ████████    ██    ███    ███    ███████ 
