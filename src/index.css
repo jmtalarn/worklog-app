@@ -138,6 +138,28 @@ button:focus {
 	outline-offset: 2px;
 }
 
+button.success {
+	background: var(--success);
+	color: var(--success-text);
+}
+button.success:hover {
+	background: var(--success-hover);
+}
+button.success:active {
+	background: var(--success-active);
+}
+
+button.danger {
+	background: var(--danger);
+	color: var(--danger-text);
+}
+button.danger:hover {
+	background: var(--danger-hover);
+}
+button.danger:active {
+	background: var(--danger-active);
+}
+
 /*
  
  ██    ███    ██    ██████     ██    ██    ████████    ███████ 
