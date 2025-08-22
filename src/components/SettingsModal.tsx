@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState } from '@/store';
 import { closeSettingsModal } from '@/store/uiSlice';
@@ -8,17 +8,59 @@ import { type Project, getProjectsByClient, addProject, deleteProject } from '@/
 export function SettingsModal() {
 	const isOpen = useSelector((state: RootState) => state.ui.showSettingsModal);
 	const dispatch = useDispatch();
+	const dialogRef = useRef<HTMLDialogElement | null>(null);
 
 	const [clients, setClients] = useState<Client[]>([]);
 	const [projectsByClient, setProjectsByClient] = useState<Record<string, Project[]>>({});
 	const [newClientName, setNewClientName] = useState('');
 	const [newProjectName, setNewProjectName] = useState<Record<string, string>>({});
 
+	// useEffect(() => {
+	// 	if (isOpen) {
+	// 		loadData();
+	// 		dialogRef.current?.showModal();
+	// 	} else {
+	// 		dialogRef.current?.close();
+	// 	}
+	// }, [isOpen]);
 	useEffect(() => {
-		if (isOpen) {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		if (isOpen && !dialog.open) {
 			loadData();
+			dialog.showModal();
+		} else if (!isOpen && dialog.open) {
+			dialog.close();
 		}
 	}, [isOpen]);
+
+	// Sync Redux state when the user closes the dialog via Esc or backdrop
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		const handleClose = () => {
+			// If the dialog closed by user action, reflect that in Redux
+			if (isOpen) dispatch(closeHistoryModal());
+		};
+
+		// Optional: intercept "cancel" (Esc/backdrop) and let Redux drive the close
+		// If you prefer this behavior, uncomment the cancel handler.
+		// const handleCancel = (e: Event) => {
+		//   e.preventDefault();            // stop the native auto-close
+		//   dispatch(closeHistoryModal()); // Redux -> effect above calls dialog.close()
+		// };
+
+		dialog.addEventListener('close', handleClose);
+		// dialog.addEventListener('cancel', handleCancel);
+
+		return () => {
+			dialog.removeEventListener('close', handleClose);
+			// dialog.removeEventListener('cancel', handleCancel);
+		};
+	}, [dispatch, isOpen]);
+
 
 	const loadData = async () => {
 		const loadedClients = await getAllClients();
@@ -57,82 +99,84 @@ export function SettingsModal() {
 		await loadData();
 	};
 
-	if (!isOpen) return null;
+	//if (!isOpen) return null;
 
 	return (
-		<div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-start pt-20 z-50">
-			<div className="bg-white dark:bg-gray-800 p-6 rounded shadow-md max-w-xl w-full max-h-[80vh] overflow-y-auto">
-				<h2 className="text-xl font-bold mb-4">⚙️ Configuració</h2>
+		<dialog ref={dialogRef}>
+			<div className="">
+				<div className="">
+					<h2 className="">⚙️ Configuració</h2>
 
-				<div className="space-y-4">
-					{clients.map((client) => (
-						<div key={client.id} className="border p-3 rounded">
-							<div className="flex justify-between items-center">
-								<strong>🔸 {client.name}</strong>
-								{!client.isPersonal && (
-									<button
-										onClick={() => handleDeleteClient(client.id)}
-										className="text-red-600 hover:underline"
-									>
-										🗑 Elimina client
-									</button>
-								)}
-							</div>
-
-							<div className="ml-4 mt-2 space-y-1">
-								{projectsByClient[client.id!]?.map((project) => (
-									<div key={project.id} className="flex justify-between items-center">
-										<span>- 📁 {project.name}</span>
+					<div className="">
+						{clients.map((client) => (
+							<div key={client.id} className="">
+								<div className="">
+									<strong>🔸 {client.name}</strong>
+									{!client.isPersonal && (
 										<button
-											onClick={() => handleDeleteProject(project.id!)}
-											className="text-red-500 text-sm hover:underline"
+											onClick={() => handleDeleteClient(client.id)}
+											className=""
 										>
-											🗑
+											🗑 Elimina client
+										</button>
+									)}
+								</div>
+
+								<div className="">
+									{projectsByClient[client.id!]?.map((project) => (
+										<div key={project.id} className="">
+											<span>- 📁 {project.name}</span>
+											<button
+												onClick={() => handleDeleteProject(project.id!)}
+												className=""
+											>
+												🗑
+											</button>
+										</div>
+									))}
+
+									<div className="">
+										<input
+											type="text"
+											placeholder="Nou projecte"
+											value={newProjectName[client.id!] || ''}
+											onChange={(e) =>
+												setNewProjectName((prev) => ({ ...prev, [client.id!]: e.target.value }))
+											}
+											className=""
+										/>
+										<button
+											onClick={() => handleAddProject(client.id!)}
+											className=""
+										>
+											➕ Afegir
 										</button>
 									</div>
-								))}
-
-								<div className="flex mt-2 gap-2">
-									<input
-										type="text"
-										placeholder="Nou projecte"
-										value={newProjectName[client.id!] || ''}
-										onChange={(e) =>
-											setNewProjectName((prev) => ({ ...prev, [client.id!]: e.target.value }))
-										}
-										className="flex-1 p-1 border rounded"
-									/>
-									<button
-										onClick={() => handleAddProject(client.id!)}
-										className="bg-blue-600 text-white px-2 rounded"
-									>
-										➕ Afegir
-									</button>
 								</div>
 							</div>
-						</div>
-					))}
+						))}
 
-					<div className="flex gap-2">
-						<input
-							type="text"
-							placeholder="Nom del nou client"
-							value={newClientName}
-							onChange={(e) => setNewClientName(e.target.value)}
-							className="flex-1 p-2 border rounded"
-						/>
-						<button onClick={handleAddClient} className="bg-green-600 text-white px-4 rounded">
-							➕ Afegir Client
+						<div className="">
+							<input
+								type="text"
+								placeholder="Nom del nou client"
+								value={newClientName}
+								onChange={(e) => setNewClientName(e.target.value)}
+								className=""
+							/>
+							<button onClick={handleAddClient} className="">
+								➕ Afegir Client
+							</button>
+						</div>
+					</div>
+
+					<div className="">
+						<button onClick={() => dispatch(closeSettingsModal())} className="">
+							✖️ Tanca
 						</button>
 					</div>
 				</div>
-
-				<div className="text-right mt-6">
-					<button onClick={() => dispatch(closeSettingsModal())} className="text-blue-600 hover:underline">
-						✖️ Tanca
-					</button>
-				</div>
 			</div>
-		</div>
+		</dialog>
 	);
 }

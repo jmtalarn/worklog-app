@@ -59,15 +59,15 @@ export function SessionControl() {
 	const isSessionActive = currentSessionId !== null;
 
 	return (
-		<div className="flex flex-wrap items-end gap-3 ">
-			<div className="flex flex-col gap-1">
-				<label className="text-sm font-medium text-gray-700 flex items-center gap-1">
+		<div className="">
+			<div className="">
+				<label className="">
 					🔸 {intl.formatMessage({ id: 'SessionControl.client', defaultMessage: 'Client' })}</label>
 				<select
 					disabled={isSessionActive}
 					value={selectedClientId ?? ''}
 					onChange={(e) => setSelectedClientId(e.target.value)}
-					className="min-w-[180px] px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm text-gray-800 bg-white disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+					className=""
 				>
 					<option value="">{intl.formatMessage({ id: 'SessionControl.selectClient', defaultMessage: '— Tria client —' })}</option>
 					{clients.map((client) => (
@@ -77,14 +77,14 @@ export function SessionControl() {
 					))}
 				</select>
 			</div>
-			<div className="flex flex-col gap-1">
-				<label className="text-sm font-medium text-gray-700 flex items-center gap-1">
+			<div className="">
+				<label className="">
 					📁 {intl.formatMessage({ id: 'SessionControl.project', defaultMessage: 'Project' })}</label>
 				<select
 					disabled={isSessionActive || !selectedClientId}
 					value={selectedProjectId ?? ''}
 					onChange={(e) => setSelectedProjectId(e.target.value)}
-					className="min-w-[180px] px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm text-gray-800 bg-white disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+					className=""
 				>
 					<option value="">{intl.formatMessage({ id: 'SessionControl.selectProject', defaultMessage: '— Tria projecte —' })}</option>
 					{projects.map((project) => (
@@ -110,9 +110,9 @@ export function SessionControl() {
 				}
 				disabled={!selectedProjectId && !currentSessionId}
 			>
-				{currentSessionId ? <><svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+				{currentSessionId ? <><svg className="">
 					<rect x="6" y="6" width="8" height="8" />
-				</svg>{intl.formatMessage({ id: 'SessionControl.endSession', defaultMessage: 'Finalitza la sessió' })}</> : <><svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+				</svg>{intl.formatMessage({ id: 'SessionControl.endSession', defaultMessage: 'Finalitza la sessió' })}</> : <><svg className="">
 					<path d="M6 4l10 6-10 6V4z" />
 				</svg>{intl.formatMessage({ id: 'SessionControl.startSession', defaultMessage: 'Inicia la sessió' })}</>}
 			</button>

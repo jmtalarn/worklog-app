@@ -8,7 +8,7 @@ export function SettingsButton() {
 	return (
 		<button
 			onClick={() => dispatch(openSettingsModal())}
-			className="px-3 py-2 bg-neutral-200 dark:bg-neutral-800 rounded text-sm"
+			className=""
 		>
 			⚙️ Configuració
 		</button>

@@ -1,0 +1,16 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.title {
+	white-space: nowrap;
+	margin: 0;
+}
+
+.controls {
+	display: flex;
+	gap: 0.5rem;
+}

@@ -58,14 +58,14 @@ const SessionStatus = () => {
 		: null;
 
 	return (
-		<div className="inline-flex flex-col gap-1 px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 text-sm w-fit min-w-[250px]">
-			<div className="inline-flex items-center gap-2">
+		<div className="">
+			<div className="">
 				<span>{emoji}</span>
 				<span>{statusText}</span>
 			</div>
 
 
-			<div className="text-gray-600 dark:text-gray-300 min-h-[1.25rem]">
+			<div className="">
 				{isActive && startedAt ? <div>⏱️ Inici: <strong>{startedAt}</strong></div> : <div>&nbsp;</div>}
 			</div>
 

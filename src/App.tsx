@@ -9,17 +9,18 @@ import { SettingsButton } from './components/SettingsButton';
 import { SettingsModal } from './components/SettingsModal';
 import { HistoryButton } from './components/HistoryButton';
 import { HistoryModal } from './components/HistoryModal';
+import styles from './App.module.css';
 
 function App() {
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-bold">
+    <div className="">
+      <header className={styles.header}>
+        <h1 className={styles.title}>
           <FormattedMessage defaultMessage="Worklog" id="title" />
         </h1>
         <CurrentDate />
-        <div className="flex items-center gap-2">
+        <div className={styles.controls}>
           <LanguageSelector />
           <DarkModeSwitch />
           <SettingsButton />
@@ -27,8 +28,8 @@ function App() {
           <HistoryModal />
           <HistoryButton />
         </div>
-      </div>
-      <div className="flex flex-wrap items-start gap-4 mb-4 p-6 bg-blue-100 rounded-lg shadow-md justify-center">
+      </header>
+      <div className="">
         <SessionStatus />
 
         <SessionControl />
