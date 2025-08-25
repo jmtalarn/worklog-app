@@ -88,7 +88,7 @@ body {
 	color: var(--text);
 	font-family: "Segoe UI", Roboto, sans-serif;
 	margin: 0;
-	padding: 1rem;
+	padding: 0;
 	transition: background 0.3s, color 0.3s;
 }
 
@@ -128,7 +128,7 @@ button:hover {
 	background: var(--primary-hover);
 }
 
-button:active {
+button:not([disabled]):active {
 	background: var(--primary-active);
 	transform: scale(0.98);
 }
@@ -142,10 +142,10 @@ button.success {
 	background: var(--success);
 	color: var(--success-text);
 }
-button.success:hover {
+button.success:not([disabled]):hover {
 	background: var(--success-hover);
 }
-button.success:active {
+button.success:not([disabled]):active {
 	background: var(--success-active);
 }
 
@@ -153,10 +153,10 @@ button.danger {
 	background: var(--danger);
 	color: var(--danger-text);
 }
-button.danger:hover {
+button.danger:not([disabled]):hover {
 	background: var(--danger-hover);
 }
-button.danger:active {
+button.danger:not([disabled]):active {
 	background: var(--danger-active);
 }
 
@@ -212,7 +212,7 @@ select {
 	cursor: not-allowed;
 }
 button[disabled] {
-	opacity: 0.6;
+	opacity: 0.4;
 }
 /*
  

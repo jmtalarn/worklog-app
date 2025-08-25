@@ -4,6 +4,8 @@ import { type RootState } from '@/store';
 import { closeSettingsModal } from '@/store/uiSlice';
 import { type Client, getAllClients, addClient, deleteClient } from '@/lib/db/clientStore';
 import { type Project, getProjectsByClient, addProject, deleteProject } from '@/lib/db/projectStore';
+import modalStyles from './Modal.module.css';
+import { useIntl } from 'react-intl';
 
 export function SettingsModal() {
 	const isOpen = useSelector((state: RootState) => state.ui.showSettingsModal);
@@ -14,7 +16,7 @@ export function SettingsModal() {
 	const [projectsByClient, setProjectsByClient] = useState<Record<string, Project[]>>({});
 	const [newClientName, setNewClientName] = useState('');
 	const [newProjectName, setNewProjectName] = useState<Record<string, string>>({});
-
+	const intl = useIntl();
 	// useEffect(() => {
 	// 	if (isOpen) {
 	// 		loadData();
@@ -42,7 +44,7 @@ export function SettingsModal() {
 
 		const handleClose = () => {
 			// If the dialog closed by user action, reflect that in Redux
-			if (isOpen) dispatch(closeHistoryModal());
+			if (isOpen) dispatch(closeSettingsModal());
 		};
 
 		// Optional: intercept "cancel" (Esc/backdrop) and let Redux drive the close
@@ -102,81 +104,76 @@ export function SettingsModal() {
 	//if (!isOpen) return null;
 
 	return (
-		<dialog ref={dialogRef}>
-			<div className="">
-				<div className="">
-					<h2 className="">⚙️ Configuració</h2>
+		<dialog ref={dialogRef} className={[modalStyles.dialog, modalStyles.settings].join(' ')}>
+			<header className={modalStyles.header}>
+				<h2>⚙️ {intl.formatMessage({ id: 'Settings.settings', defaultMessage: 'Configuració' })}</h2>
+				<button onClick={() => dispatch(closeSettingsModal())} className="">
+					✖️ {intl.formatMessage({ id: 'close', defaultMessage: 'Tanca' })}
+				</button>
+			</header>
+			<div className={modalStyles.inputRow}>
+				<input
+					type="text"
+					placeholder={intl.formatMessage({ id: 'Settings.newClient', defaultMessage: 'Nom del nou client' })}
+					value={newClientName}
+					onChange={(e) => setNewClientName(e.target.value)}
+				/>
+				<button onClick={handleAddClient} className="">
+					➕ {intl.formatMessage({ id: 'Settings.addClient', defaultMessage: 'Afegir client' })}
+				</button>
+			</div>
+			<div className={modalStyles.section}>
+				{clients.map((client) => (
+					<div key={client.id} className={modalStyles.client}>
+						<div className={[modalStyles.clientHeader, modalStyles.row].join(' ')}>
+							<strong>🔸 {client.name}</strong>
+							{!client.isPersonal && (
+								<button
+									onClick={() => handleDeleteClient(client.id)}
+									className=""
+								>
+									🗑 {intl.formatMessage({ id: 'Settings.deleteClient', defaultMessage: 'Elimina client' })}
+								</button>
+							)}
+						</div>
 
-					<div className="">
-						{clients.map((client) => (
-							<div key={client.id} className="">
-								<div className="">
-									<strong>🔸 {client.name}</strong>
-									{!client.isPersonal && (
-										<button
-											onClick={() => handleDeleteClient(client.id)}
-											className=""
-										>
-											🗑 Elimina client
-										</button>
-									)}
+						<div >
+							{projectsByClient[client.id!]?.map((project) => (
+								<div key={project.id} className={[modalStyles.project, modalStyles.row].join(' ')}>
+									<span>- 📁 {project.name}</span>
+									<button
+										onClick={() => handleDeleteProject(project.id!)}
+										className=""
+									>
+										🗑
+									</button>
 								</div>
+							))}
 
-								<div className="">
-									{projectsByClient[client.id!]?.map((project) => (
-										<div key={project.id} className="">
-											<span>- 📁 {project.name}</span>
-											<button
-												onClick={() => handleDeleteProject(project.id!)}
-												className=""
-											>
-												🗑
-											</button>
-										</div>
-									))}
+							<div className={modalStyles.inputRow}>
+								<input
+									type="text"
+									placeholder={intl.formatMessage({ id: 'Settings.newProject', defaultMessage: 'Nou projecte' })}
+									value={newProjectName[client.id!] || ''}
+									onChange={(e) =>
+										setNewProjectName((prev) => ({ ...prev, [client.id!]: e.target.value }))
+									}
 
-									<div className="">
-										<input
-											type="text"
-											placeholder="Nou projecte"
-											value={newProjectName[client.id!] || ''}
-											onChange={(e) =>
-												setNewProjectName((prev) => ({ ...prev, [client.id!]: e.target.value }))
-											}
-											className=""
-										/>
-										<button
-											onClick={() => handleAddProject(client.id!)}
-											className=""
-										>
-											➕ Afegir
-										</button>
-									</div>
-								</div>
+								/>
+								<button
+									onClick={() => handleAddProject(client.id!)}
+									className=""
+								>
+									➕ {intl.formatMessage({ id: 'Settings.addProject', defaultMessage: 'Afegir projecte' })}
+								</button>
 							</div>
-						))}
-
-						<div className="">
-							<input
-								type="text"
-								placeholder="Nom del nou client"
-								value={newClientName}
-								onChange={(e) => setNewClientName(e.target.value)}
-								className=""
-							/>
-							<button onClick={handleAddClient} className="">
-								➕ Afegir Client
-							</button>
 						</div>
 					</div>
+				))}
 
-					<div className="">
-						<button onClick={() => dispatch(closeSettingsModal())} className="">
-							✖️ Tanca
-						</button>
-					</div>
-				</div>
+
 			</div>
+
 		</dialog>
 	);
 }

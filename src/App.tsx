@@ -14,7 +14,7 @@ import styles from './App.module.css';
 function App() {
 
   return (
-    <div className="">
+    <div className={styles.app}>
       <header className={styles.header}>
         <h1 className={styles.title}>
           <FormattedMessage defaultMessage="Worklog" id="title" />
@@ -29,11 +29,12 @@ function App() {
           <HistoryButton />
         </div>
       </header>
-      <div className={styles['session-controls']}>
-        <SessionStatus />
-
-        <SessionControl />
-      </div>
+      <main className={styles.main}>
+        <div className={styles['session-controls']}>
+          <SessionStatus />
+          <SessionControl />
+        </div>
+      </main>
 
     </div>
   );

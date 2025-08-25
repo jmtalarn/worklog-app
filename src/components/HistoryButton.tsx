@@ -10,7 +10,7 @@ export function HistoryButton() {
 			onClick={() => dispatch(openHistoryModal())}
 			className=""
 		>
-			🕓 {intl.formatMessage({ id: 'SessionHistory.history', defaultMessage: 'Historial' })}
+			🕓 <span className="label">{intl.formatMessage({ id: 'SessionHistory.history', defaultMessage: 'Historial' })}</span>
 		</button>
 	);
 }

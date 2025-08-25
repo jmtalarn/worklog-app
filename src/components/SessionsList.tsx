@@ -6,7 +6,7 @@ import { useEffect, useState, type FC } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import Row from './SessionListRow';
-
+import styles from './SessionsList.module.css';
 
 interface Props {
 	sessions: SessionWithDetails[];
@@ -19,10 +19,11 @@ const SessionList: FC<Props> = ({ sessions }) => {
 		return <p className="">🔎 No s'ha trobat cap sessió registrada.</p>;
 	}
 
-	return (
-		<div >
-			<h2 className="">📋 Sessions registrades:</h2>
-			<table className="">
+	return (<>
+
+		<h2 className="">📋 Sessions registrades:</h2>
+		<div className={styles.tableWrap}>
+			<table className={styles.table}>
 				<thead className="">
 					<tr>
 						<th className="">
@@ -37,6 +38,7 @@ const SessionList: FC<Props> = ({ sessions }) => {
 						<th className="">
 							{intl.formatMessage({ id: 'sessionTable.client', defaultMessage: 'Client' })}
 						</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody className="">
@@ -47,7 +49,7 @@ const SessionList: FC<Props> = ({ sessions }) => {
 						))}
 				</tbody>
 			</table>
-		</div >
+		</div ></>
 	);
 };
 

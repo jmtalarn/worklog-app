@@ -1,5 +1,6 @@
 .datetime {
 	font-size: small;
-
 	padding: 1rem 0;
+	text-align: center;
+	flex-grow: 1;
 }

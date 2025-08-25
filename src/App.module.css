@@ -1,18 +1,37 @@
+.app {
+	/* Fill the viewport and create a column layout */
+	min-height: calc(100svh - 2rem); /* safe for mobile address bars */
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+}
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
 }
-
+.main {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
 .title {
 	white-space: nowrap;
 	margin: 0;
 }
-
 .config-buttons {
 	display: flex;
 	gap: 0.5rem;
+	flex-grow: 1;
+	justify-content: flex-end;
+}
+
+@media (max-width: 480px) {
+	.config-buttons :global(.label) {
+		display: none;
+	}
 }
 
 .session-controls {
@@ -21,4 +40,9 @@
 	gap: 1rem;
 	margin-top: 1rem;
 	flex-wrap: wrap;
+
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
 }

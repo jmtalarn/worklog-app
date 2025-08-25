@@ -1,0 +1,111 @@
+.dialog {
+	border: 1px solid var(--border, #d1d1d1); /* border on the dialog itself */
+	outline: none; /* remove UA outline */
+	border-radius: 10px;
+	background: var(--surface, #fff);
+	color: var(--text, #1e1e1e);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+	width: 90%;
+	//max-width: 600px;
+	max-height: 80vh;
+	overflow: hidden;
+	animation: fadeIn 0.2s ease-out;
+	padding: 1.5rem; /* dialog provides padding now */
+}
+
+.dialog::backdrop {
+	background: rgba(0, 0, 0, 0.4);
+	backdrop-filter: blur(12px); /* heavier blur */
+}
+
+.dialog.settings {
+	max-width: 600px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.header h2 {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+.closeButton {
+	border: none;
+	background: transparent;
+	font-size: 1rem;
+	cursor: pointer;
+	color: var(--text-muted, #616161);
+}
+
+.section {
+}
+
+.client {
+	padding: 1rem;
+	border-bottom: 1px solid var(--border, #e0e0e0);
+	border: 1px solid var(--border, #d1d1d1);
+	border-radius: 4px;
+	margin-bottom: 0.5rem;
+}
+
+.project {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.25rem 0;
+}
+
+.inputRow {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.section .row:hover {
+	background: var(--hover, #f5f5f5);
+}
+
+.inputRow input {
+	flex: 1;
+	padding: 0.5rem;
+	border: 1px solid var(--border, #d1d1d1);
+	border-radius: 4px;
+}
+
+.inputRow button {
+	padding: 0.5rem 0.75rem;
+	border: none;
+	border-radius: 4px;
+	background: var(--primary, #0078d4);
+	color: #fff;
+	cursor: pointer;
+}
+.clientHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+.footer {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1rem;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}

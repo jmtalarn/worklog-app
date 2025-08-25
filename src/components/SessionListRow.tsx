@@ -6,6 +6,7 @@ import { loadSessions, updateSession } from '@/store/sessionsSlice';
 import { useCallback, useEffect, useState, type FC } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from 'react-redux';
+import styles from './SessionListRow.module.css';
 
 interface RowProps {
 	session: SessionWithDetails;
@@ -131,7 +132,7 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 						</select>
 					</td>
 					<td className="">
-						<div className="">
+						<div className={styles.buttons}>
 							<button
 								onClick={handleSave}
 								className=""
@@ -180,6 +181,7 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 					<td className="">
 						{session.clientName}
 					</td>
+					<td className="">&nbsp;</td>
 				</>
 			)}
 		</tr>

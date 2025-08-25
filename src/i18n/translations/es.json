@@ -24,5 +24,13 @@
 	"sessionTable.end": "Fin",
 	"sessionTable.project": "Proyecto",
 	"sessionTable.client": "Cliente",
-	"sessionTable.clicktoedit": "Haz clic para editar"
+	"sessionTable.clicktoedit": "Haz clic para editar",
+	"Settings.settings": "Configuración",
+	"Settings.deleteClient": "Eliminar cliente",
+	"Settings.addProject": "Agregar proyecto",
+	"Settings.addClient": "Agregar cliente",
+	"Settings.newProject": "Nuevo proyecto",
+	"Settings.newClient": "Nombre del nuevo cliente",
+	"darkModeSwitch.title": "Cambiar a modo oscuro/claro",
+	"darkModeSwitch.label": "Modo"
 }

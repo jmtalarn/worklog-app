@@ -1,4 +1,4 @@
 .language-selector {
-	min-width: 5rem;
 	padding-right: 0;
+	max-width: 10rem;
 }

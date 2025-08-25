@@ -8,6 +8,7 @@ export const LanguageSelector = () => {
 
 	return (
 		<select
+			name="language-selector"
 			value={locale}
 			onChange={(e) => setLocale(e.target.value as 'ca' | 'es' | 'en')}
 			className={styles['language-selector']}

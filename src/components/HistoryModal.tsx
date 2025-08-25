@@ -4,6 +4,7 @@ import { closeHistoryModal } from '@/store/uiSlice';
 import { type RootState } from '@/store';
 import SessionsList from './SessionsList';
 import { useIntl } from 'react-intl';
+import modalStyles from './Modal.module.css';
 
 export function HistoryModal() {
 	const isOpen = useSelector((state: RootState) => state.ui.showHistoryModal);
@@ -50,28 +51,25 @@ export function HistoryModal() {
 	}, [dispatch, isOpen]);
 
 	return (
-		<dialog ref={dialogRef}>
-			<div className="">
-				<div className="">
-					<div className="">
-						<h2 className="">
-							<span className="">🕓</span>
-							{intl.formatMessage({ id: 'SessionHistory.sessionsHistory', defaultMessage: 'Historial de registres' })}
-						</h2>
-						<button
-							onClick={() => dispatch(closeHistoryModal())}
-							className=""
-						>
-							<span className="">✖️</span>
-							{intl.formatMessage({ id: 'close', defaultMessage: 'Tanca' })}
-						</button>
-					</div>
+		<dialog ref={dialogRef} className={modalStyles.dialog}>
 
-					<SessionsList />
+			<header className={modalStyles.header}>
+				<h2>
+					<span className="">🕓</span>
+					{intl.formatMessage({ id: 'SessionHistory.sessionsHistory', defaultMessage: 'Historial de registres' })}
+				</h2>
+				<button
+					onClick={() => dispatch(closeHistoryModal())}
+					className=""
+				>
+					<span className="">✖️</span>
+					{intl.formatMessage({ id: 'close', defaultMessage: 'Tanca' })}
+				</button>
+			</header>
+
+			<SessionsList />
 
 
-				</div>
-			</div>
 		</dialog>
 	);
 }

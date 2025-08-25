@@ -1,0 +1,9 @@
+.buttons {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.buttons button {
+	white-space: nowrap;
+	font-size: small;
+}
