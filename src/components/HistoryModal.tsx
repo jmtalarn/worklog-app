@@ -1,37 +1,75 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
 import { closeHistoryModal } from '@/store/uiSlice';
 import { type RootState } from '@/store';
 import SessionsList from './SessionsList';
 import { useIntl } from 'react-intl';
+import modalStyles from './Modal.module.css';
 
 export function HistoryModal() {
 	const isOpen = useSelector((state: RootState) => state.ui.showHistoryModal);
 	const intl = useIntl();
 	const dispatch = useDispatch();
+	const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-	if (!isOpen) return null;
+	// if (!isOpen) return null;
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		if (isOpen && !dialog.open) {
+			dialog.showModal();
+		} else if (!isOpen && dialog.open) {
+			dialog.close();
+		}
+	}, [isOpen]);
+
+	// Sync Redux state when the user closes the dialog via Esc or backdrop
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		const handleClose = () => {
+			// If the dialog closed by user action, reflect that in Redux
+			if (isOpen) dispatch(closeHistoryModal());
+		};
+
+		// Optional: intercept "cancel" (Esc/backdrop) and let Redux drive the close
+		// If you prefer this behavior, uncomment the cancel handler.
+		// const handleCancel = (e: Event) => {
+		//   e.preventDefault();            // stop the native auto-close
+		//   dispatch(closeHistoryModal()); // Redux -> effect above calls dialog.close()
+		// };
+
+		dialog.addEventListener('close', handleClose);
+		// dialog.addEventListener('cancel', handleCancel);
+
+		return () => {
+			dialog.removeEventListener('close', handleClose);
+			// dialog.removeEventListener('cancel', handleCancel);
+		};
+	}, [dispatch, isOpen]);
 
 	return (
-		<div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-start pt-20 z-50">
-			<div className="bg-white dark:bg-gray-800 p-6 rounded shadow-md max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-				<div className="flex items-center justify-between mb-4">
-					<h2 className="text-xl font-bold flex items-center">
-						<span className="mr-2">🕓</span>
-						{intl.formatMessage({ id: 'SessionHistory.sessionsHistory', defaultMessage: 'Historial de registres' })}
-					</h2>
-					<button
-						onClick={() => dispatch(closeHistoryModal())}
-						className="text-blue-600 hover:underline flex items-center"
-					>
-						<span className="mr-1">✖️</span>
-						{intl.formatMessage({ id: 'close', defaultMessage: 'Tanca' })}
-					</button>
-				</div>
+		<dialog ref={dialogRef} className={modalStyles.dialog}>
 
-				<SessionsList />
+			<header className={modalStyles.header}>
+				<h2>
+					<span className="">🕓</span>
+					{intl.formatMessage({ id: 'SessionHistory.sessionsHistory', defaultMessage: 'Historial de registres' })}
+				</h2>
+				<button
+					onClick={() => dispatch(closeHistoryModal())}
+					className=""
+				>
+					<span className="">✖️</span>
+					{intl.formatMessage({ id: 'close', defaultMessage: 'Tanca' })}
+				</button>
+			</header>
+
+			<SessionsList />
 
 
-			</div>
-		</div>
+		</dialog>
 	);
 }

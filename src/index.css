@@ -1,71 +1,245 @@
-@import "tailwindcss";
+/*
+ 
+  ██████     ██████     ██          ██████     ██████     ███████ 
+ ██         ██    ██    ██         ██    ██    ██   ██    ██      
+ ██         ██    ██    ██         ██    ██    ██████     ███████ 
+ ██         ██    ██    ██         ██    ██    ██   ██         ██ 
+  ██████     ██████     ███████     ██████     ██   ██    ███████ 
+                                                                  
+                                                                  
+ 
+*/
+/* Light theme (default) */
+:root {
+	--surface: #ffffff;
+	--surface-alt: #f3f3f3;
+	--surface-hover: #eaeaea;
+	--border: #d1d1d1;
 
-@custom-variant dark (&:where(.dark, .dark *));
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	--text: #1e1e1e;
+	--text-muted: #616161;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	--primary: #0078d4; /* Fluent blue */
+	--primary-hover: #106ebe;
+	--primary-active: #005a9e;
+	--primary-text: #ffffff;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	--success: #107c10; /* Microsoft Fluent green */
+	--success-hover: #0e6a0e;
+	--success-active: #094509;
+	--success-text: #ffffff;
+
+	--danger: #d13438; /* Fluent red */
+	--danger-hover: #a4262c;
+	--danger-active: #60171a;
+	--danger-text: #ffffff;
+
+	--focus-ring: #0078d4;
+	--radius: 4px;
+	--shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+/* Dark theme (when <html class="dark">) */
+html.dark {
+	--surface: #1b1b1b;
+	--surface-alt: #2c2c2c;
+	--surface-hover: #333333;
+	--border: #3d3d3d;
 
+	--text: #f3f3f3;
+	--text-muted: #a1a1a1;
+
+	--primary: #002050; /* very dark Fluent blue */
+	--primary-hover: #003366; /* slightly lighter navy for hover */
+	--primary-active: #00132b; /* almost black-blue for pressed */
+	--focus-ring: #1a4fbf; /* softer blue ring */
+
+	--success: #0b6a0b; /* darker green */
+	--success-hover: #0d8f0d;
+	--success-active: #074207;
+	--success-text: #ffffff;
+
+	--danger: #a4262c; /* darker red */
+	--danger-hover: #d13438;
+	--danger-active: #5a1012;
+	--danger-text: #ffffff;
+
+	/* --primary: #2899f5;
+	--primary-hover: #3aa0f3;
+	--primary-active: #0078d4; 
+  --focus-ring: #2899f5;*/
+
+	--primary-text: #ffffff;
+	--shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+/*
+ 
+ ██████      █████     ███████    ███████ 
+ ██   ██    ██   ██    ██         ██      
+ ██████     ███████    ███████    █████   
+ ██   ██    ██   ██         ██    ██      
+ ██████     ██   ██    ███████    ███████ 
+                                          
+                                          
+ 
+*/
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+	background: var(--surface);
+	color: var(--text);
+	font-family: "Segoe UI", Roboto, sans-serif;
+	margin: 0;
+	padding: 0;
+	transition: background 0.3s, color 0.3s;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+label {
+	font-size: 0.875rem;
+	color: var(--text-muted);
+	display: block;
+	margin-bottom: 0.25rem;
 }
+
+/*
+ 
+ ██████     ██    ██    ████████    ████████     ██████     ███    ██    ███████    
+ ██   ██    ██    ██       ██          ██       ██    ██    ████   ██    ██         
+ ██████     ██    ██       ██          ██       ██    ██    ██ ██  ██    ███████    
+ ██   ██    ██    ██       ██          ██       ██    ██    ██  ██ ██         ██    
+ ██████      ██████        ██          ██        ██████     ██   ████    ███████    
+                                                                                    
+                                                                                    
+ 
+*/
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+	background: var(--primary);
+	color: var(--primary-text);
+	border: none;
+	border-radius: var(--radius);
+	padding: 0.5rem 1rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+	cursor: pointer;
+	box-shadow: var(--shadow);
+	transition: background 0.2s, transform 0.1s;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+button:hover {
+	background: var(--primary-hover);
+}
+
+button:not([disabled]):active {
+	background: var(--primary-active);
+	transform: scale(0.98);
+}
+
+button:focus {
+	outline: 2px solid var(--focus-ring);
+	outline-offset: 2px;
+}
+
+button.success {
+	background: var(--success);
+	color: var(--success-text);
+}
+button.success:not([disabled]):hover {
+	background: var(--success-hover);
+}
+button.success:not([disabled]):active {
+	background: var(--success-active);
+}
+
+button.danger {
+	background: var(--danger);
+	color: var(--danger-text);
+}
+button.danger:not([disabled]):hover {
+	background: var(--danger-hover);
+}
+button.danger:not([disabled]):active {
+	background: var(--danger-active);
+}
+
+/*
+ 
+ ██    ███    ██    ██████     ██    ██    ████████    ███████ 
+ ██    ████   ██    ██   ██    ██    ██       ██       ██      
+ ██    ██ ██  ██    ██████     ██    ██       ██       ███████ 
+ ██    ██  ██ ██    ██         ██    ██       ██            ██ 
+ ██    ██   ████    ██          ██████        ██       ███████ 
+                                                               
+                                                               
+ 
+*/
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="datetime-local"],
+select {
+	background: var(--surface-alt);
+	color: var(--text);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 0.5rem 0.75rem;
+	font-size: 0.9rem;
+	width: 100%;
+	box-sizing: border-box;
+	transition: border 0.2s, background 0.2s;
+}
+
+input::placeholder {
+	color: var(--text-muted);
+}
+
+input:focus,
+select:focus {
+	border-color: var(--focus-ring);
+	outline: none;
+	box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+select {
+	appearance: none;
+	background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20'><path d='M7 10l5 5 5-5z'/></svg>");
+	background-repeat: no-repeat;
+	background-position: right 0.5rem center;
+	background-size: 1rem;
+	padding-right: 2rem;
+	cursor: pointer;
+}
+
+[disabled] {
+	cursor: not-allowed;
+}
+button[disabled] {
+	opacity: 0.4;
+}
+/*
+ 
+ ██████      █████     ████████    ███████    ████████    ██    ███    ███    ███████ 
+ ██   ██    ██   ██       ██       ██            ██       ██    ████  ████    ██      
+ ██   ██    ███████       ██       █████         ██       ██    ██ ████ ██    █████   
+ ██   ██    ██   ██       ██       ██            ██       ██    ██  ██  ██    ██      
+ ██████     ██   ██       ██       ███████       ██       ██    ██      ██    ███████ 
+                                                                                      
+                                                                                      
+ 
+*/
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+	background: var(--surface-alt);
+	color: var(--text);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 0.4rem 0.6rem;
+	font-size: 0.9rem;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="datetime-local"]:focus {
+	border-color: var(--focus-ring);
+	outline: none;
+	box-shadow: 0 0 0 2px var(--focus-ring);
+}

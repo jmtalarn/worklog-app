@@ -1,0 +1,88 @@
+/* Table */
+.table {
+	border-collapse: separate;
+	border-spacing: 0;
+	min-width: 700px; /* keep columns readable */
+	width: 100%;
+	font-size: 0.9rem;
+	color: var(--text, #1e1e1e);
+	table-layout: auto; /* let browser size columns by content */
+}
+
+/* Header */
+.table thead th {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background: var(--elevated, #f7f7f7);
+	color: var(--text, #1e1e1e);
+	text-align: left;
+	font-weight: 600;
+	padding: 0.625rem 0.75rem;
+	border-bottom: 1px solid var(--border, #d1d1d1);
+	white-space: nowrap;
+}
+
+/* Body cells */
+.table tbody td {
+	padding: 0.6rem 0.75rem;
+	border-bottom: 1px solid var(--border, #e0e0e0);
+	vertical-align: middle;
+}
+
+/* Rows: zebra + hover */
+.table tbody tr:nth-child(even) {
+	background: var(--surface-alt, #fafafa);
+}
+.table tbody tr:hover {
+	background: var(--surface-hover, #f0f0f0);
+}
+
+/* Rounded corners on the visible table edges */
+.table thead th:first-child {
+	border-top-left-radius: 10px;
+}
+.table thead th:last-child {
+	border-top-right-radius: 10px;
+}
+.table tbody tr:last-child td:first-child {
+	border-bottom-left-radius: 10px;
+}
+.table tbody tr:last-child td:last-child {
+	border-bottom-right-radius: 10px;
+}
+/* First two columns shrink to fit content */
+.table th:nth-child(1),
+.table td:nth-child(1),
+.table th:nth-child(2),
+.table td:nth-child(2) {
+	white-space: nowrap;
+	width: 1%; /* shrink to min-content */
+}
+
+/* Last two columns stretch */
+.table th:nth-child(3),
+.table td:nth-child(3),
+.table th:nth-child(4),
+.table td:nth-child(4) {
+	width: auto;
+}
+/* Empty-state text */
+.empty {
+	font-size: 0.9rem;
+	color: var(--text-muted, #616161);
+}
+
+.tableWrap {
+	background: var(--surface, #fff);
+	border: 1px solid var(--border, #d1d1d1);
+	border-radius: 10px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+	overflow: auto; /* enable horizontal scroll on small screens */
+	max-height: 65vh; /* optional: cap height and scroll */
+}
+
+/* Dark mode tweaks if you use html.dark + variables */
+html.dark .tableWrap {
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}

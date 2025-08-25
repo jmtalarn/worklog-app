@@ -6,6 +6,7 @@ import { loadSessions, updateSession } from '@/store/sessionsSlice';
 import { useCallback, useEffect, useState, type FC } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from 'react-redux';
+import styles from './SessionListRow.module.css';
 
 interface RowProps {
 	session: SessionWithDetails;
@@ -72,7 +73,7 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 
 	return (
 		<tr
-			className="hover:bg-gray-50 cursor-pointer"
+			className=""
 			onClick={() => !isEditing && setIsEditing(true)}
 			title={intl.formatMessage({
 				id: "sessionTable.clicktoedit",
@@ -81,18 +82,18 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 		>
 			{isEditing ? (
 				<>
-					<td className="px-2 py-2">
+					<td className="">
 						<input
 							type="datetime-local"
-							className="border rounded px-2 py-1 text-sm w-full"
+							className=""
 							value={new Date(draft.start).toISOString().slice(0, 16)}
 							onChange={(e) => handleChange("start", e.target.value)}
 						/>
 					</td>
-					<td className="px-2 py-2">
+					<td className="">
 						<input
 							type="datetime-local"
-							className="border rounded px-2 py-1 text-sm w-full"
+							className=""
 							value={
 								draft.end
 									? new Date(draft.end).toISOString().slice(0, 16)
@@ -101,12 +102,12 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 							onChange={(e) => handleChange("end", e.target.value)}
 						/>
 					</td>
-					<td className="px-2 py-2">
+					<td className="">
 
 						<select
 							value={selectedProjectId ?? ''}
 							onChange={(e) => setSelectedProjectId(e.target.value)}
-							className="border rounded px-2 py-1 text-sm w-full"
+							className=""
 						>
 							<option value="">{intl.formatMessage({ id: 'SessionControl.selectProject', defaultMessage: '— Tria projecte —' })}</option>
 							{projects.map((project) => (
@@ -116,11 +117,11 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 							))}
 						</select>
 					</td>
-					<td className="px-2 py-2">
+					<td className="">
 						<select
 							value={selectedClientId ?? ''}
 							onChange={(e) => setSelectedClientId(e.target.value)}
-							className="border rounded px-2 py-1 text-sm w-full"
+							className=""
 						>
 							<option value="">{intl.formatMessage({ id: 'SessionControl.selectClient', defaultMessage: '— Tria client —' })}</option>
 							{clients.map((client) => (
@@ -130,11 +131,11 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 							))}
 						</select>
 					</td>
-					<td className="px-2 py-2 text-right">
-						<div className="flex items-center gap-1 justify-end">
+					<td className="">
+						<div className={styles.buttons}>
 							<button
 								onClick={handleSave}
-								className="bg-blue-600 text-white px-2 py-2 rounded text-xs whitespace-nowrap flex-shrink"
+								className=""
 								style={{ minWidth: "0" }}
 							>
 								💾 {intl.formatMessage({
@@ -144,7 +145,7 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 							</button>
 							<button
 								onClick={() => setIsEditing(false)}
-								className="bg-gray-300 text-gray-800 px-2 py-2 rounded text-xs whitespace-nowrap flex-shrink"
+								className=""
 								style={{ minWidth: "0" }}
 							>
 								✖ {intl.formatMessage({
@@ -157,13 +158,13 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 				</>
 			) : (
 				<>
-					<td className="px-2 py-2 text-sm text-gray-800">
+					<td className="">
 						{intl.formatDate(session.start, {
 							dateStyle: "medium",
 							timeStyle: "short",
 						})}
 					</td>
-					<td className="px-2 py-2 text-sm text-gray-800">
+					<td className="">
 						{session.end
 							? intl.formatDate(session.end, {
 								dateStyle: "medium",
@@ -174,12 +175,13 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 								defaultMessage: "Treball en curs",
 							})}
 					</td>
-					<td className="px-2 py-2 text-sm text-gray-800">
+					<td className="">
 						{session.projectName}
 					</td>
-					<td className="px-2 py-2 text-sm text-gray-800">
+					<td className="">
 						{session.clientName}
 					</td>
+					<td className="">&nbsp;</td>
 				</>
 			)}
 		</tr>

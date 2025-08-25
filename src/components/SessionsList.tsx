@@ -6,7 +6,7 @@ import { useEffect, useState, type FC } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import Row from './SessionListRow';
-
+import styles from './SessionsList.module.css';
 
 interface Props {
 	sessions: SessionWithDetails[];
@@ -16,30 +16,32 @@ const SessionList: FC<Props> = ({ sessions }) => {
 	const intl = useIntl();
 
 	if (sessions.length === 0) {
-		return <p className="text-sm text-gray-500">🔎 No s'ha trobat cap sessió registrada.</p>;
+		return <p className="">🔎 No s'ha trobat cap sessió registrada.</p>;
 	}
 
-	return (
-		<div >
-			<h2 className="text-lg font-semibold mt-4">📋 Sessions registrades:</h2>
-			<table className="min-w-full border border-gray-200 divide-y divide-gray-200 mt-4">
-				<thead className="bg-gray-100">
+	return (<>
+
+		<h2 className="">📋 Sessions registrades:</h2>
+		<div className={styles.tableWrap}>
+			<table className={styles.table}>
+				<thead className="">
 					<tr>
-						<th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						<th className="">
 							{intl.formatMessage({ id: 'sessionTable.start', defaultMessage: 'Start' })}
 						</th>
-						<th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						<th className="">
 							{intl.formatMessage({ id: 'sessionTable.end', defaultMessage: 'End' })}
 						</th>
-						<th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						<th className="">
 							{intl.formatMessage({ id: 'sessionTable.project', defaultMessage: 'Project' })}
 						</th>
-						<th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
+						<th className="">
 							{intl.formatMessage({ id: 'sessionTable.client', defaultMessage: 'Client' })}
 						</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
-				<tbody className="divide-y divide-gray-200">
+				<tbody className="">
 					{[...sessions]
 						.sort((a, b) => new Date(b.start).toISOString().localeCompare(new Date(a.start).toISOString()))
 						.map((s) => (
@@ -47,7 +49,7 @@ const SessionList: FC<Props> = ({ sessions }) => {
 						))}
 				</tbody>
 			</table>
-		</div >
+		</div ></>
 	);
 };
 

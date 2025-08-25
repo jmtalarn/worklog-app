@@ -7,6 +7,7 @@ import type { RootState, AppDispatch } from '@/store';
 import { getAllSessions } from '@/lib/db/sessionStore';
 import type { Client, Project } from '@/lib/db/types';
 import { useIntl } from 'react-intl';
+import styles from './SessionControl.module.css';
 
 export function SessionControl() {
 	const intl = useIntl();
@@ -59,60 +60,52 @@ export function SessionControl() {
 	const isSessionActive = currentSessionId !== null;
 
 	return (
-		<div className="flex flex-wrap items-end gap-3 ">
-			<div className="flex flex-col gap-1">
-				<label className="text-sm font-medium text-gray-700 flex items-center gap-1">
-					🔸 {intl.formatMessage({ id: 'SessionControl.client', defaultMessage: 'Client' })}</label>
-				<select
-					disabled={isSessionActive}
-					value={selectedClientId ?? ''}
-					onChange={(e) => setSelectedClientId(e.target.value)}
-					className="min-w-[180px] px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm text-gray-800 bg-white disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
-				>
-					<option value="">{intl.formatMessage({ id: 'SessionControl.selectClient', defaultMessage: '— Tria client —' })}</option>
-					{clients.map((client) => (
-						<option key={client.id} value={client.id}>
-							{client.name}
-						</option>
-					))}
-				</select>
-			</div>
-			<div className="flex flex-col gap-1">
-				<label className="text-sm font-medium text-gray-700 flex items-center gap-1">
-					📁 {intl.formatMessage({ id: 'SessionControl.project', defaultMessage: 'Project' })}</label>
-				<select
-					disabled={isSessionActive || !selectedClientId}
-					value={selectedProjectId ?? ''}
-					onChange={(e) => setSelectedProjectId(e.target.value)}
-					className="min-w-[180px] px-3 py-2 border border-gray-300 rounded-md shadow-sm text-sm text-gray-800 bg-white disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
-				>
-					<option value="">{intl.formatMessage({ id: 'SessionControl.selectProject', defaultMessage: '— Tria projecte —' })}</option>
-					{projects.map((project) => (
-						<option key={project.id} value={project.id}>
-							{project.name}
-						</option>
-					))}
-				</select>
+		<div className={styles['session-control']}>
+			<div className={styles.fields}>
+
+				<div className="">
+					<label className="">
+						🔸 {intl.formatMessage({ id: 'SessionControl.client', defaultMessage: 'Client' })}</label>
+					<select
+						disabled={isSessionActive}
+						value={selectedClientId ?? ''}
+						onChange={(e) => setSelectedClientId(e.target.value)}
+						className=""
+					>
+						<option value="">{intl.formatMessage({ id: 'SessionControl.selectClient', defaultMessage: '— Tria client —' })}</option>
+						{clients.map((client) => (
+							<option key={client.id} value={client.id}>
+								{client.name}
+							</option>
+						))}
+					</select>
+				</div>
+				<div className="">
+					<label className="">
+						📁 {intl.formatMessage({ id: 'SessionControl.project', defaultMessage: 'Project' })}</label>
+					<select
+						disabled={isSessionActive || !selectedClientId}
+						value={selectedProjectId ?? ''}
+						onChange={(e) => setSelectedProjectId(e.target.value)}
+						className=""
+					>
+						<option value="">{intl.formatMessage({ id: 'SessionControl.selectProject', defaultMessage: '— Tria projecte —' })}</option>
+						{projects.map((project) => (
+							<option key={project.id} value={project.id}>
+								{project.name}
+							</option>
+						))}
+					</select>
+				</div>
 			</div>
 			<button
 				onClick={currentSessionId ? handleStopSession : handleStartSession}
-				className={
-					`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white 
-					${isSessionActive
-						? 'bg-red-600 hover:bg-red-700 focus:ring-red-400'
-						: 'bg-green-600 hover:bg-green-700 focus:ring-green-400'}
-					rounded-md
-					transition 
-					focus:outline-none
-					min-w-[180px] justify-center text-center
-					disabled:opacity-50 disabled:cursor-not-allowed
-					`
-				}
+				className={[styles.button, isSessionActive ? "danger" : "success"].join(' ')}
 				disabled={!selectedProjectId && !currentSessionId}
 			>
-				{currentSessionId ? <><svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+				{currentSessionId ? <><svg className="">
 					<rect x="6" y="6" width="8" height="8" />
-				</svg>{intl.formatMessage({ id: 'SessionControl.endSession', defaultMessage: 'Finalitza la sessió' })}</> : <><svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+				</svg>{intl.formatMessage({ id: 'SessionControl.endSession', defaultMessage: 'Finalitza la sessió' })}</> : <><svg className="">
 					<path d="M6 4l10 6-10 6V4z" />
 				</svg>{intl.formatMessage({ id: 'SessionControl.startSession', defaultMessage: 'Inicia la sessió' })}</>}
 			</button>

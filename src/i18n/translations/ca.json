@@ -1,5 +1,5 @@
 {
-	"title": "Worklog",
+	"title": "Registre de treball",
 	"start": "Inicia sessió",
 	"end": "Finalitza sessió",
 	"close": "Tanca",
@@ -24,5 +24,13 @@
 	"sessionTable.end": "Fi",
 	"sessionTable.project": "Projecte",
 	"sessionTable.client": "Client",
-	"sessionTable.clicktoedit": "Clica per editar"
+	"sessionTable.clicktoedit": "Clica per editar",
+	"Settings.settings": "Configuració",
+	"Settings.deleteClient": "Elimina client",
+	"Settings.addProject": "Afegir projecte",
+	"Settings.addClient": "Afegir client",
+	"Settings.newProject": "Nou projecte",
+	"Settings.newClient": "Nom del nou client",
+	"darkModeSwitch.title": "Canvia a mode fosc/clar",
+	"darkModeSwitch.label": "Mode"
 }

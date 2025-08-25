@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useI18n } from '@/i18n/i18n';
+import styles from './CurrentDate.module.css';
 
 const CurrentDate = () => {
 	const { locale } = useI18n();
@@ -27,7 +28,7 @@ const CurrentDate = () => {
 	);
 
 	return (
-		<span className="inline-block w-[300px] text-sm  whitespace-nowrap" >{formatted}</span>
+		<span className={styles.datetime} >{formatted}</span>
 	);
 };
 

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../store';
 import { useIntl } from 'react-intl';
 import { useMemo } from 'react';
+import styles from './SessionStatus.module.css';
 
 const SessionStatus = () => {
 	const intl = useIntl();
@@ -51,21 +52,21 @@ const SessionStatus = () => {
 		? intl.formatMessage({ id: 'sessionStatus.workInProgress', defaultMessage: 'Sessió en curs' })
 		: intl.formatMessage({ id: 'sessionStatus.notWorking', defaultMessage: 'Cap sessió activa' });
 
-	const emoji = isActive ? '🟢' : '⚪️';
+	const emoji = isActive ? '🟢 ' : '⚪️ ';
 
 	const startedAt = activeSession
 		? new Date(activeSession.start).toLocaleString()
 		: null;
 
 	return (
-		<div className="inline-flex flex-col gap-1 px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 text-sm w-fit min-w-[250px]">
-			<div className="inline-flex items-center gap-2">
+		<div className={styles.status}>
+			<div className="">
 				<span>{emoji}</span>
 				<span>{statusText}</span>
 			</div>
 
 
-			<div className="text-gray-600 dark:text-gray-300 min-h-[1.25rem]">
+			<div className="">
 				{isActive && startedAt ? <div>⏱️ Inici: <strong>{startedAt}</strong></div> : <div>&nbsp;</div>}
 			</div>
 
