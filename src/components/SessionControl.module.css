@@ -1,10 +1,28 @@
+/* .session-control {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	flex-grow: 1;
+} */
 .session-control {
+	display: flex;
+	align-items: flex-start;
+	gap: 1rem;
+	margin-top: 1rem;
+	flex-wrap: wrap;
+
+	max-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+	width: calc(100% - 2rem);
+}
+.info {
 	display: flex;
 	flex-direction: row;
 	gap: 0.5rem;
 	flex-grow: 1;
+	min-width: 200px;
 }
-
 .fields {
 	display: flex;
 	flex-direction: column;
@@ -22,5 +40,7 @@
 	align-items: center;
 	gap: 0.25rem;
 	justify-content: center;
-	max-width: 4rem;
+
+	flex-grow: 1;
+	width: 100%;
 }

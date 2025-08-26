@@ -4,5 +4,6 @@
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	background: var(--surface);
-	min-height: 6rem;
+	min-height: 7rem;
+	width: 8rem;
 }

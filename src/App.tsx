@@ -4,7 +4,7 @@ import CurrentDate from './components/CurrentDate';
 import { DarkModeSwitch } from './components/DarkModeSwitch';
 import { LanguageSelector } from './components/LanguageSelector';
 import { SessionControl } from './components/SessionControl';
-import SessionStatus from './components/SessionStatus';
+
 import { SettingsButton } from './components/SettingsButton';
 import { SettingsModal } from './components/SettingsModal';
 import { HistoryButton } from './components/HistoryButton';
@@ -30,10 +30,7 @@ function App() {
         </div>
       </header>
       <main className={styles.main}>
-        <div className={styles['session-controls']}>
-          <SessionStatus />
-          <SessionControl />
-        </div>
+        <SessionControl />
       </main>
 
     </div>

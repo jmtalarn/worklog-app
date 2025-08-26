@@ -8,6 +8,7 @@ import { getAllSessions } from '@/lib/db/sessionStore';
 import type { Client, Project } from '@/lib/db/types';
 import { useIntl } from 'react-intl';
 import styles from './SessionControl.module.css';
+import SessionStatus from './SessionStatus';
 
 export function SessionControl() {
 	const intl = useIntl();
@@ -61,41 +62,44 @@ export function SessionControl() {
 
 	return (
 		<div className={styles['session-control']}>
-			<div className={styles.fields}>
+			<div className={styles.info}>
+				<SessionStatus />
+				<div className={styles.fields}>
 
-				<div className="">
-					<label className="">
-						🔸 {intl.formatMessage({ id: 'SessionControl.client', defaultMessage: 'Client' })}</label>
-					<select
-						disabled={isSessionActive}
-						value={selectedClientId ?? ''}
-						onChange={(e) => setSelectedClientId(e.target.value)}
-						className=""
-					>
-						<option value="">{intl.formatMessage({ id: 'SessionControl.selectClient', defaultMessage: '— Tria client —' })}</option>
-						{clients.map((client) => (
-							<option key={client.id} value={client.id}>
-								{client.name}
-							</option>
-						))}
-					</select>
-				</div>
-				<div className="">
-					<label className="">
-						📁 {intl.formatMessage({ id: 'SessionControl.project', defaultMessage: 'Project' })}</label>
-					<select
-						disabled={isSessionActive || !selectedClientId}
-						value={selectedProjectId ?? ''}
-						onChange={(e) => setSelectedProjectId(e.target.value)}
-						className=""
-					>
-						<option value="">{intl.formatMessage({ id: 'SessionControl.selectProject', defaultMessage: '— Tria projecte —' })}</option>
-						{projects.map((project) => (
-							<option key={project.id} value={project.id}>
-								{project.name}
-							</option>
-						))}
-					</select>
+					<div className="">
+						<label className="">
+							🔸 {intl.formatMessage({ id: 'SessionControl.client', defaultMessage: 'Client' })}</label>
+						<select
+							disabled={isSessionActive}
+							value={selectedClientId ?? ''}
+							onChange={(e) => setSelectedClientId(e.target.value)}
+							className=""
+						>
+							<option value="">{intl.formatMessage({ id: 'SessionControl.selectClient', defaultMessage: '— Tria client —' })}</option>
+							{clients.map((client) => (
+								<option key={client.id} value={client.id}>
+									{client.name}
+								</option>
+							))}
+						</select>
+					</div>
+					<div className="">
+						<label className="">
+							📁 {intl.formatMessage({ id: 'SessionControl.project', defaultMessage: 'Project' })}</label>
+						<select
+							disabled={isSessionActive || !selectedClientId}
+							value={selectedProjectId ?? ''}
+							onChange={(e) => setSelectedProjectId(e.target.value)}
+							className=""
+						>
+							<option value="">{intl.formatMessage({ id: 'SessionControl.selectProject', defaultMessage: '— Tria projecte —' })}</option>
+							{projects.map((project) => (
+								<option key={project.id} value={project.id}>
+									{project.name}
+								</option>
+							))}
+						</select>
+					</div>
 				</div>
 			</div>
 			<button
