@@ -55,16 +55,18 @@
 .table th:nth-child(1),
 .table td:nth-child(1),
 .table th:nth-child(2),
-.table td:nth-child(2) {
+.table td:nth-child(2),
+.table th:nth-child(3),
+.table td:nth-child(3) {
 	white-space: nowrap;
 	width: 1%; /* shrink to min-content */
 }
 
 /* Last two columns stretch */
-.table th:nth-child(3),
-.table td:nth-child(3),
 .table th:nth-child(4),
-.table td:nth-child(4) {
+.table td:nth-child(4),
+.table th:nth-child(5),
+.table td:nth-child(5) {
 	width: auto;
 }
 /* Empty-state text */
@@ -83,6 +85,18 @@
 }
 
 /* Dark mode tweaks if you use html.dark + variables */
-html.dark .tableWrap {
+html:global(.dark) .tableWrap {
 	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+html:global(.dark) .table thead th {
+	background: var(--elevated-dark, #232323);
+	color: var(--text-dark, #e0e0e0);
+	border-bottom: 1px solid var(--border-dark, #444);
+}
+
+.footer {
+	display: flex;
+	justify-content: flex-end;
+	padding: 0.5rem 0;
 }

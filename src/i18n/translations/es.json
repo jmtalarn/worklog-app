@@ -22,6 +22,7 @@
 	"SessionHistory.history": "Historial",
 	"sessionTable.start": "Inicio",
 	"sessionTable.end": "Fin",
+	"sessionTable.hours": "Horas",
 	"sessionTable.project": "Proyecto",
 	"sessionTable.client": "Cliente",
 	"sessionTable.clicktoedit": "Haz clic para editar",
@@ -32,5 +33,6 @@
 	"Settings.newProject": "Nuevo proyecto",
 	"Settings.newClient": "Nombre del nuevo cliente",
 	"darkModeSwitch.title": "Cambiar a modo oscuro/claro",
-	"darkModeSwitch.label": "Modo"
+	"darkModeSwitch.label": "Modo",
+	"export": "Exportar datos"
 }

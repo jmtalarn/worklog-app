@@ -6,6 +6,45 @@ import SessionsList from './SessionsList';
 import { useIntl } from 'react-intl';
 import modalStyles from './Modal.module.css';
 
+function exportToCSV(data, filename = "export.csv") {
+	if (!data || !data.length) {
+		console.warn("No data to export");
+		return;
+	}
+
+	// Extract column headers (keys)
+	const headers = Object.keys(data[0]);
+
+	// Map rows
+	const rows = data.map(row =>
+		headers.map(fieldName => {
+			let value = row[fieldName] ?? "";
+			// Escape quotes by doubling them
+			if (typeof value === "string") {
+				value = value.replace(/"/g, '""');
+			}
+			return `"${value}"`; // quote everything for safety
+		}).join(",")
+	);
+
+	// Join headers + rows
+	const csvContent = [headers.join(","), ...rows].join("\n");
+
+	// Create Blob and trigger download
+	const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+	const url = URL.createObjectURL(blob);
+
+	const link = document.createElement("a");
+	link.href = url;
+	link.setAttribute("download", filename);
+	document.body.appendChild(link);
+	link.click();
+
+	// Cleanup
+	document.body.removeChild(link);
+	URL.revokeObjectURL(url);
+}
+
 export function HistoryModal() {
 	const isOpen = useSelector((state: RootState) => state.ui.showHistoryModal);
 	const intl = useIntl();
@@ -68,7 +107,6 @@ export function HistoryModal() {
 			</header>
 
 			<SessionsList />
-
 
 		</dialog>
 	);

@@ -22,6 +22,7 @@
 	"SessionHistory.history": "Historial",
 	"sessionTable.start": "Inici",
 	"sessionTable.end": "Fi",
+	"sessionTable.hours": "Hores",
 	"sessionTable.project": "Projecte",
 	"sessionTable.client": "Client",
 	"sessionTable.clicktoedit": "Clica per editar",
@@ -32,5 +33,6 @@
 	"Settings.newProject": "Nou projecte",
 	"Settings.newClient": "Nom del nou client",
 	"darkModeSwitch.title": "Canvia a mode fosc/clar",
-	"darkModeSwitch.label": "Mode"
+	"darkModeSwitch.label": "Mode",
+	"export": "Exporta dades"
 }

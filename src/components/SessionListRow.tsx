@@ -13,6 +13,14 @@ interface RowProps {
 	onSave?: (updated: SessionWithDetails) => void;
 }
 
+
+function getSessionHours(start: string | Date, end?: string | Date): number {
+	const startDate = typeof start === "string" ? new Date(start) : start;
+	const endDate = end ? (typeof end === "string" ? new Date(end) : end) : new Date();
+	const msDiff = endDate.getTime() - startDate.getTime();
+	return msDiff > 0 ? msDiff / (1000 * 60 * 60) : 0;
+}
+
 const Row: FC<RowProps> = ({ session, onSave }) => {
 	const intl = useIntl();
 	const [isEditing, setIsEditing] = useState(false);
@@ -103,6 +111,9 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 						/>
 					</td>
 					<td className="">
+						{getSessionHours(draft.start, draft.end).toFixed(2)}
+					</td>
+					<td className="">
 
 						<select
 							value={selectedProjectId ?? ''}
@@ -174,6 +185,9 @@ const Row: FC<RowProps> = ({ session, onSave }) => {
 								id: "sessionStatus.workInProgress",
 								defaultMessage: "Treball en curs",
 							})}
+					</td>
+					<td className="">
+						{getSessionHours(draft.start, draft.end).toFixed(2)}
 					</td>
 					<td className="">
 						{session.projectName}
